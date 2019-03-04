@@ -37,9 +37,11 @@
         "ssh_wait_timeout": "10000s",
         "type": "virtualbox-iso",
         "vboxmanage": [
-            ["modifyvm", "{{.Name}}", "--audio", "none"],
             ["modifyvm", "{{.Name}}", "--usb", "off"],
-            ["modifyvm", "{{.Name}}", "--vram", "12"],
+            ["modifyvm", "{{.Name}}", "--vram", "256"],
+            ["modifyvm", "{{.Name}}", "--natpf1", "guestssh,tcp,,2222,,22"],
+VBoxManage modifyvm "VM name" --natpf1 "guestssh,tcp,,2222,,22"
+
             ["modifyvm", "{{.Name}}", "--vrde", "off"],
             ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
             ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
@@ -81,7 +83,7 @@
         "cpus": "1",
         "disable_ipv6": "true",
         "disk_size": "40960",
-        "headless": "true",
+        "headless": "false",
         "hostname": "cosmic64",
         "http_proxy": "{{env `http_proxy`}}",
         "https_proxy": "{{env `https_proxy`}}",
@@ -90,7 +92,7 @@
         "iso_name": "ubuntu-18.10-server-amd64.iso",
         "iso_path": "iso",
         "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/cosmic/release/ubuntu-18.10-server-amd64.iso",
-        "memory": "1024",
+        "memory": "4096",
         "no_proxy": "{{env `no_proxy`}}",
         "preseed": "preseed.cfg",
         "ssh_fullname": "vagrant",
